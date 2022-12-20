@@ -1,54 +1,54 @@
 #include "db_var1.h"
 
-#pragma warning(disable : 4996) // отключение предупреждения в Visual Studio
+#pragma warning(disable : 4996) // РѕС‚РєР»СЋС‡РµРЅРёРµ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёСЏ РІ Visual Studio
 
-#include <iostream> // для функий ввода/вывода
-#include <iomanip>  // для функций корретировки вывода таблицы
-#include <fstream>  // для работы с файлами
+#include <iostream> // РґР»СЏ С„СѓРЅРєРёР№ РІРІРѕРґР°/РІС‹РІРѕРґР°
+#include <iomanip>  // РґР»СЏ С„СѓРЅРєС†РёР№ РєРѕСЂСЂРµС‚РёСЂРѕРІРєРё РІС‹РІРѕРґР° С‚Р°Р±Р»РёС†С‹
+#include <fstream>  // РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ С„Р°Р№Р»Р°РјРё
 
 using namespace db_var1;
 
-// функция Добавления текстовых данных в массив
-template<typename size_t N>             // для автоматического вычисления размера
+// С„СѓРЅРєС†РёСЏ Р”РѕР±Р°РІР»РµРЅРёСЏ С‚РµРєСЃС‚РѕРІС‹С… РґР°РЅРЅС‹С… РІ РјР°СЃСЃРёРІ
+template<typename size_t N>             // РґР»СЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РІС‹С‡РёСЃР»РµРЅРёСЏ СЂР°Р·РјРµСЂР°
 void AddStr(char(&str)[N]) {
-    std::cin.getline(str, str_size__);  // getline для чтения всей строки с пробелами
-    if (std::cin.fail()) {              // при переполнении буфера пропускаем не вместившиеся символы
+    std::cin.getline(str, str_size__);  // getline РґР»СЏ С‡С‚РµРЅРёСЏ РІСЃРµР№ СЃС‚СЂРѕРєРё СЃ РїСЂРѕР±РµР»Р°РјРё
+    if (std::cin.fail()) {              // РїСЂРё РїРµСЂРµРїРѕР»РЅРµРЅРёРё Р±СѓС„РµСЂР° РїСЂРѕРїСѓСЃРєР°РµРј РЅРµ РІРјРµСЃС‚РёРІС€РёРµСЃСЏ СЃРёРјРІРѕР»С‹
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
 
-// Запуск программы
+// Р—Р°РїСѓСЃРє РїСЂРѕРіСЂР°РјРјС‹
 void StudyGroupList::Start() {
-	std::cout << "[Программа \"Список учебной группы\" запущена.]" << std::endl;
+	std::cout << "[РџСЂРѕРіСЂР°РјРјР° \"РЎРїРёСЃРѕРє СѓС‡РµР±РЅРѕР№ РіСЂСѓРїРїС‹\" Р·Р°РїСѓС‰РµРЅР°.]" << std::endl;
 	Menu();
 }
 
-// Меню программы
+// РњРµРЅСЋ РїСЂРѕРіСЂР°РјРјС‹
 void StudyGroupList::Menu() {
 	while (true) {
         std::cout << 
             line__ << '\n' <<
-            "1\t- Добавить ученика\n" <<
-            "2\t- Изменить запись\n" <<
-            "3\t- Удалить запись\n" <<
-            "4\t- Вывести список учеников\n" <<
-            "5\t- Вывести определенного ученика\n" <<
-            "6\t- Сортировать учеников по курсу\n" <<
-            "7\t- Сохранить БД в файл\n" <<
-            "8\t- Загрузить БД из файла\n" <<
-            "9\t- Перевод файла в бинарный\n" <<
-            "10\t- Загрузить БД из бинарного файла\n" <<
-            "11\t- Распечатать анкетные данные студента, имеющего максимальный средний балл\n" << 
-            "0\t- Выход\n" <<
+            "1\t- Р”РѕР±Р°РІРёС‚СЊ СѓС‡РµРЅРёРєР°\n" <<
+            "2\t- РР·РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ\n" <<
+            "3\t- РЈРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ\n" <<
+            "4\t- Р’С‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє СѓС‡РµРЅРёРєРѕРІ\n" <<
+            "5\t- Р’С‹РІРµСЃС‚Рё РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ СѓС‡РµРЅРёРєР°\n" <<
+            "6\t- РЎРѕСЂС‚РёСЂРѕРІР°С‚СЊ СѓС‡РµРЅРёРєРѕРІ РїРѕ РєСѓСЂСЃСѓ\n" <<
+            "7\t- РЎРѕС…СЂР°РЅРёС‚СЊ Р‘Р” РІ С„Р°Р№Р»\n" <<
+            "8\t- Р—Р°РіСЂСѓР·РёС‚СЊ Р‘Р” РёР· С„Р°Р№Р»Р°\n" <<
+            "9\t- РџРµСЂРµРІРѕРґ С„Р°Р№Р»Р° РІ Р±РёРЅР°СЂРЅС‹Р№\n" <<
+            "10\t- Р—Р°РіСЂСѓР·РёС‚СЊ Р‘Р” РёР· Р±РёРЅР°СЂРЅРѕРіРѕ С„Р°Р№Р»Р°\n" <<
+            "11\t- Р Р°СЃРїРµС‡Р°С‚Р°С‚СЊ Р°РЅРєРµС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ СЃС‚СѓРґРµРЅС‚Р°, РёРјРµСЋС‰РµРіРѕ РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЃСЂРµРґРЅРёР№ Р±Р°Р»Р»\n" << 
+            "0\t- Р’С‹С…РѕРґ\n" <<
             line__ << std::endl;
 
         char command[2] = { -1, -1};
-        // проверка на ввод цифр
+        // РїСЂРѕРІРµСЂРєР° РЅР° РІРІРѕРґ С†РёС„СЂ
         while (true) {
             std::cin.get(command[0]); if (command[0] == '\n') continue;
 
-            if (!(command[0] >= 48 && command[0] <= 57)) { // код ASCII 48 = '0', код ASCII 57 = '9'
+            if (!(command[0] >= 48 && command[0] <= 57)) { // РєРѕРґ ASCII 48 = '0', РєРѕРґ ASCII 57 = '9'
                 std::cout << line__ << std::endl;
                 continue;
             }
@@ -60,23 +60,23 @@ void StudyGroupList::Menu() {
                 }
             }
             std::cout << line__ << std::endl;
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // считали max 2 символа, остальное пропустили
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // СЃС‡РёС‚Р°Р»Рё max 2 СЃРёРјРІРѕР»Р°, РѕСЃС‚Р°Р»СЊРЅРѕРµ РїСЂРѕРїСѓСЃС‚РёР»Рё
             break;
         }
 
-        int ch = atoi(command); // получаем число
+        int ch = atoi(command); // РїРѕР»СѓС‡Р°РµРј С‡РёСЃР»Рѕ
         switch (ch) {
         case 1:
         {
             Add(ind_next_);
-            ++ind_next_;        // обновляем индекс
+            ++ind_next_;        // РѕР±РЅРѕРІР»СЏРµРј РёРЅРґРµРєСЃ
 
             std::cout << line__ <<
-                "\n[Студент " <<
+                "\n[РЎС‚СѓРґРµРЅС‚ " <<
                 students_[ind_next_ - 1].surname_ << " " <<
                 students_[ind_next_ - 1].name_ << " " <<
                 students_[ind_next_ - 1].patronymic_ << " " <<
-                "добавлен в список.]" << std::endl;
+                "РґРѕР±Р°РІР»РµРЅ РІ СЃРїРёСЃРѕРє.]" << std::endl;
             break;
         }
         case 2:
@@ -110,7 +110,7 @@ void StudyGroupList::Menu() {
             PrintMostSuccessfulStudent();
             break;
         case 0:
-            std::cout << "[Программа \"Список учебной группы\" закрыта.]" << std::endl;
+            std::cout << "[РџСЂРѕРіСЂР°РјРјР° \"РЎРїРёСЃРѕРє СѓС‡РµР±РЅРѕР№ РіСЂСѓРїРїС‹\" Р·Р°РєСЂС‹С‚Р°.]" << std::endl;
             return;
         default:
             break;
@@ -118,137 +118,137 @@ void StudyGroupList::Menu() {
 	}
 }
 
-// Добавить студента в список
+// Р”РѕР±Р°РІРёС‚СЊ СЃС‚СѓРґРµРЅС‚Р° РІ СЃРїРёСЃРѕРє
 void StudyGroupList::Add(int index) {
-    std::cout << "Введите имя: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ: ";
     AddStr(students_[index].name_);
-    std::cout << "\nВведите фамилию: ";
+    std::cout << "\nР’РІРµРґРёС‚Рµ С„Р°РјРёР»РёСЋ: ";
     AddStr(students_[index].surname_);
-    std::cout << "\nВведите отчество: ";
+    std::cout << "\nР’РІРµРґРёС‚Рµ РѕС‚С‡РµСЃС‚РІРѕ: ";
     AddStr(students_[index].patronymic_);
-    std::cout << "\nВведите группу: ";
+    std::cout << "\nР’РІРµРґРёС‚Рµ РіСЂСѓРїРїСѓ: ";
     AddStr(students_[index].group_);
-    std::cout << "\nВведите курс: ";
+    std::cout << "\nР’РІРµРґРёС‚Рµ РєСѓСЂСЃ: ";
     std::cin >> students_[index].course_;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // записываем первый символ, остальное пропускаем
-    std::cout << "\nВведите оценку по программированию: ";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Р·Р°РїРёСЃС‹РІР°РµРј РїРµСЂРІС‹Р№ СЃРёРјРІРѕР», РѕСЃС‚Р°Р»СЊРЅРѕРµ РїСЂРѕРїСѓСЃРєР°РµРј
+    std::cout << "\nР’РІРµРґРёС‚Рµ РѕС†РµРЅРєСѓ РїРѕ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёСЋ: ";
     std::cin >> students_[index].grades_.programming_;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "\nВведите оценку по истории: ";
+    std::cout << "\nР’РІРµРґРёС‚Рµ РѕС†РµРЅРєСѓ РїРѕ РёСЃС‚РѕСЂРёРё: ";
     std::cin >> students_[index].grades_.history_;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "\nВведите оценку по физической культуре: ";
-    std::cin >> students_[index].grades_.phys_сult_;
+    std::cout << "\nР’РІРµРґРёС‚Рµ РѕС†РµРЅРєСѓ РїРѕ С„РёР·РёС‡РµСЃРєРѕР№ РєСѓР»СЊС‚СѓСЂРµ: ";
+    std::cin >> students_[index].grades_.phys_СЃult_;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "\nВведите оценку по геометрии: ";
+    std::cout << "\nР’РІРµРґРёС‚Рµ РѕС†РµРЅРєСѓ РїРѕ РіРµРѕРјРµС‚СЂРёРё: ";
     std::cin >> students_[index].grades_.geometry_;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "\nВведите оценку по математике: ";
+    std::cout << "\nР’РІРµРґРёС‚Рµ РѕС†РµРЅРєСѓ РїРѕ РјР°С‚РµРјР°С‚РёРєРµ: ";
     std::cin >> students_[index].grades_.maths_;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-// Изменить запись в списке
+// РР·РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ РІ СЃРїРёСЃРєРµ
 void StudyGroupList::ChangeEntry() {
     if (!PrintAll()) return;
 
-    std::cout << "[Введите id соответствующей записи для редактирования.]" << std::endl;
+    std::cout << "[Р’РІРµРґРёС‚Рµ id СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµР№ Р·Р°РїРёСЃРё РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.]" << std::endl;
 
     int tmp = 0;
     std::cin >> tmp;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (tmp < 0 || tmp >= ind_next_) {
-        std::cout << "[Такой записи нет!]\n" << line__ << std::endl;;
+        std::cout << "[РўР°РєРѕР№ Р·Р°РїРёСЃРё РЅРµС‚!]\n" << line__ << std::endl;;
         return;
     }
 
-    Add(tmp); // перезаписываем
+    Add(tmp); // РїРµСЂРµР·Р°РїРёСЃС‹РІР°РµРј
 }
 
-// Удалить запись из списка
+// РЈРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ РёР· СЃРїРёСЃРєР°
 void StudyGroupList::DeleteEntry() {
     if (!PrintAll()) return;
     
-    std::cout << "[Введите id соответствующей записи для удаления.]" << std::endl;
+    std::cout << "[Р’РІРµРґРёС‚Рµ id СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµР№ Р·Р°РїРёСЃРё РґР»СЏ СѓРґР°Р»РµРЅРёСЏ.]" << std::endl;
 
     int tmp = 0;
     std::cin >> tmp;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (tmp < 0 || tmp >= ind_next_) {
-        std::cout << "Такой записи нет\n";
+        std::cout << "РўР°РєРѕР№ Р·Р°РїРёСЃРё РЅРµС‚\n";
         return;
     }
 
-    for (int i = tmp; i < ind_next_; ++i)   // "удаляем" запись смещением данных в массиве
+    for (int i = tmp; i < ind_next_; ++i)   // "СѓРґР°Р»СЏРµРј" Р·Р°РїРёСЃСЊ СЃРјРµС‰РµРЅРёРµРј РґР°РЅРЅС‹С… РІ РјР°СЃСЃРёРІРµ
     {
         students_[i] = students_[i + 1];
     }
-    --ind_next_;                            // обновляем индекс
+    --ind_next_;                            // РѕР±РЅРѕРІР»СЏРµРј РёРЅРґРµРєСЃ
 
-    std::cout << "[Запись успешно удалена.]" << std::endl;
+    std::cout << "[Р—Р°РїРёСЃСЊ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅР°.]" << std::endl;
 }
 
-// Вывести весь список
+// Р’С‹РІРµСЃС‚Рё РІРµСЃСЊ СЃРїРёСЃРѕРє
 bool StudyGroupList::PrintAll() {
     if (ind_next_ == 0) {
-        std::cout << "[Список пуст!]" << std::endl;
-        return false;   // возвращаем флаг, что вывода не было
+        std::cout << "[РЎРїРёСЃРѕРє РїСѓСЃС‚!]" << std::endl;
+        return false;   // РІРѕР·РІСЂР°С‰Р°РµРј С„Р»Р°Рі, С‡С‚Рѕ РІС‹РІРѕРґР° РЅРµ Р±С‹Р»Рѕ
     }
 
-    // определим ширину столбцов для таблицы
+    // РѕРїСЂРµРґРµР»РёРј С€РёСЂРёРЅСѓ СЃС‚РѕР»Р±С†РѕРІ РґР»СЏ С‚Р°Р±Р»РёС†С‹
     int ind_s = 1;      
     ind_next_ > 9 ? ind_s = 2 : ind_s = 1;
     int name_max_s = 5;
     int group_max_s = 5;
-    for (int i = 0; i < ind_next_; ++i) // находим максимальную длину ФИО и Группы в таблице,
-    {                                   // т.к. это единственные поля, где разрешён ввод > 1 символа
+    for (int i = 0; i < ind_next_; ++i) // РЅР°С…РѕРґРёРј РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ РґР»РёРЅСѓ Р¤РРћ Рё Р“СЂСѓРїРїС‹ РІ С‚Р°Р±Р»РёС†Рµ,
+    {                                   // С‚.Рє. СЌС‚Рѕ РµРґРёРЅСЃС‚РІРµРЅРЅС‹Рµ РїРѕР»СЏ, РіРґРµ СЂР°Р·СЂРµС€С‘РЅ РІРІРѕРґ > 1 СЃРёРјРІРѕР»Р°
         int width_name = strlen(students_[i].name_) + strlen(students_[i].surname_) + strlen(students_[i].patronymic_) + 2;
         if (name_max_s < width_name) name_max_s = width_name;
         int width_group = strlen(students_[i].group_) - 1;
         if (group_max_s < width_group) group_max_s = width_group;
     }
 
-    int alignment_student = name_max_s + group_max_s + 7;   // ширина отступа в шапке Студент
+    int alignment_student = name_max_s + group_max_s + 7;   // С€РёСЂРёРЅР° РѕС‚СЃС‚СѓРїР° РІ С€Р°РїРєРµ РЎС‚СѓРґРµРЅС‚
     if (alignment_student % 2 != 0) {
         ++alignment_student;
         ++name_max_s;
     }
 
-    // шапка таблицы
-    std::cout << std::setw(ind_s + 1) << '|' << std::setw(alignment_student) << std::left << "Студент" << '|' << std::right << std::setw(18) << "Оценки" << std::setw(18) << '|' << '\n';
-    std::cout << std::setw(ind_s + 1) << '|' << std::setw(name_max_s) << std::left << "ФИО" << '|' << std::setw(group_max_s + 1) << "Группа" << '|' << "Курс" << '|' << "Мат." << '|' << "Геом." << '|' << "Физ.культ." << '|' << "Програм." << '|'  << "Ист." << '|' << '\n';
-    // записи в таблице
+    // С€Р°РїРєР° С‚Р°Р±Р»РёС†С‹
+    std::cout << std::setw(ind_s + 1) << '|' << std::setw(alignment_student) << std::left << "РЎС‚СѓРґРµРЅС‚" << '|' << std::right << std::setw(18) << "РћС†РµРЅРєРё" << std::setw(18) << '|' << '\n';
+    std::cout << std::setw(ind_s + 1) << '|' << std::setw(name_max_s) << std::left << "Р¤РРћ" << '|' << std::setw(group_max_s + 1) << "Р“СЂСѓРїРїР°" << '|' << "РљСѓСЂСЃ" << '|' << "РњР°С‚." << '|' << "Р“РµРѕРј." << '|' << "Р¤РёР·.РєСѓР»СЊС‚." << '|' << "РџСЂРѕРіСЂР°Рј." << '|'  << "РСЃС‚." << '|' << '\n';
+    // Р·Р°РїРёСЃРё РІ С‚Р°Р±Р»РёС†Рµ
     for (int i = 0; i < ind_next_; ++i) {
         PrintOne(i, ind_s, name_max_s, group_max_s);
     }
     std::cout << line__ << std::endl;
 }
 
-// Вывести одиночную запись из таблицы
+// Р’С‹РІРµСЃС‚Рё РѕРґРёРЅРѕС‡РЅСѓСЋ Р·Р°РїРёСЃСЊ РёР· С‚Р°Р±Р»РёС†С‹
 void StudyGroupList::PrintOne(int id, int ind_max_size, int name_max_size, int group_max_size) {
-    char fio_buff[3 * str_size__ + 2] = {};         // буфер для хранения Фамилии Имени Отчества в одной строке; 2 - пробелы
+    char fio_buff[3 * str_size__ + 2] = {};         // Р±СѓС„РµСЂ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ Р¤Р°РјРёР»РёРё РРјРµРЅРё РћС‚С‡РµСЃС‚РІР° РІ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ; 2 - РїСЂРѕР±РµР»С‹
     strcat_s(fio_buff, 3 * str_size__ + 2, students_[id].surname_);
-    strcat_s(fio_buff, 3 * str_size__ + 2, " ");    // добавляем пробелы
+    strcat_s(fio_buff, 3 * str_size__ + 2, " ");    // РґРѕР±Р°РІР»СЏРµРј РїСЂРѕР±РµР»С‹
     strcat_s(fio_buff, 3 * str_size__ + 2, students_[id].name_);
     strcat_s(fio_buff, 3 * str_size__ + 2, " ");
     strcat_s(fio_buff, 3 * str_size__ + 2, students_[id].patronymic_);
-    std::cout << std::setw(ind_max_size) << id << '|' << std::setw(name_max_size) << std::left << fio_buff << '|' << std::setw(group_max_size + 1) << students_[id].group_ << '|' << std::setw(4) << students_[id].course_ << '|' << std::setw(4) << students_[id].grades_.maths_ << '|' << std::setw(5) << students_[id].grades_.geometry_ << '|' << std::setw(10) << students_[id].grades_.phys_сult_ << '|' << std::setw(8) << students_[id].grades_.programming_ << '|' << std::setw(4) << students_[id].grades_.history_ << '|' << std::right << '\n';
+    std::cout << std::setw(ind_max_size) << id << '|' << std::setw(name_max_size) << std::left << fio_buff << '|' << std::setw(group_max_size + 1) << students_[id].group_ << '|' << std::setw(4) << students_[id].course_ << '|' << std::setw(4) << students_[id].grades_.maths_ << '|' << std::setw(5) << students_[id].grades_.geometry_ << '|' << std::setw(10) << students_[id].grades_.phys_СЃult_ << '|' << std::setw(8) << students_[id].grades_.programming_ << '|' << std::setw(4) << students_[id].grades_.history_ << '|' << std::right << '\n';
 }
 
-// Вывести запись по id
+// Р’С‹РІРµСЃС‚Рё Р·Р°РїРёСЃСЊ РїРѕ id
 void StudyGroupList::PrintStudent() {
     if (!PrintAll()) return;
 
-    std::cout << "[Введите id соответствующей записи для вывода информации.]" << std::endl;
+    std::cout << "[Р’РІРµРґРёС‚Рµ id СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµР№ Р·Р°РїРёСЃРё РґР»СЏ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё.]" << std::endl;
 
     int tmp = 0;
     std::cin >> tmp;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if (tmp < 0 || tmp >= ind_next_) {
-        std::cout << "[Такой записи нет!]\n";
+        std::cout << "[РўР°РєРѕР№ Р·Р°РїРёСЃРё РЅРµС‚!]\n";
         return;
     }
 
@@ -267,17 +267,17 @@ void StudyGroupList::PrintStudent() {
         ++alignment_student;
         ++name_s;
     }
-    std::cout << std::setw(ind_s + 1) << '|' << std::setw(alignment_student) << std::left << "Студент" << '|' << std::right << std::setw(18) << "Оценки" << std::setw(18) << '|' << '\n';
-    std::cout << std::setw(ind_s + 1) << '|' << std::setw(name_s) << std::left << "ФИО" << '|' << std::setw(group_s + 1) << "Группа" << '|' << "Курс" << '|' << "Мат." << '|' << "Геом." << '|' << "Физ.культ." << '|' << "Програм." << '|' << "Ист." << '|' << '\n';
+    std::cout << std::setw(ind_s + 1) << '|' << std::setw(alignment_student) << std::left << "РЎС‚СѓРґРµРЅС‚" << '|' << std::right << std::setw(18) << "РћС†РµРЅРєРё" << std::setw(18) << '|' << '\n';
+    std::cout << std::setw(ind_s + 1) << '|' << std::setw(name_s) << std::left << "Р¤РРћ" << '|' << std::setw(group_s + 1) << "Р“СЂСѓРїРїР°" << '|' << "РљСѓСЂСЃ" << '|' << "РњР°С‚." << '|' << "Р“РµРѕРј." << '|' << "Р¤РёР·.РєСѓР»СЊС‚." << '|' << "РџСЂРѕРіСЂР°Рј." << '|' << "РСЃС‚." << '|' << '\n';
     PrintOne(tmp, ind_s, name_s, group_s);
 }
 
-// Сортировка списка по возрастанию Курса
+// РЎРѕСЂС‚РёСЂРѕРІРєР° СЃРїРёСЃРєР° РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ РљСѓСЂСЃР°
 void StudyGroupList::SortList() {
-    // пузырьковая сортировка
-    Student temp;   // буфер
-    for (int i = 0; i < ind_next_ - 1; i++) {   // сужение массива путём смещения точки старта анализа
-        for (int j = i + 1; j < ind_next_; j++) // сдвиг некоторого элемента в край
+    // РїСѓР·С‹СЂСЊРєРѕРІР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
+    Student temp;   // Р±СѓС„РµСЂ
+    for (int i = 0; i < ind_next_ - 1; i++) {   // СЃСѓР¶РµРЅРёРµ РјР°СЃСЃРёРІР° РїСѓС‚С‘Рј СЃРјРµС‰РµРЅРёСЏ С‚РѕС‡РєРё СЃС‚Р°СЂС‚Р° Р°РЅР°Р»РёР·Р°
+        for (int j = i + 1; j < ind_next_; j++) // СЃРґРІРёРі РЅРµРєРѕС‚РѕСЂРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РєСЂР°Р№
         {
             if (students_[i].course_ > students_[j].course_) {
                 temp = students_[i];
@@ -286,18 +286,18 @@ void StudyGroupList::SortList() {
             };
         }
     }
-    std::cout << "[Сортировка списка по возрастанию успешно завершена.]" << std::endl;
+    std::cout << "[РЎРѕСЂС‚РёСЂРѕРІРєР° СЃРїРёСЃРєР° РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅР°.]" << std::endl;
 }
 
-// Сохранить базу данных в файл
+// РЎРѕС…СЂР°РЅРёС‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… РІ С„Р°Р№Р»
 void StudyGroupList::SaveToFile() {
-    std::ofstream out("DB.txt", std::ios::app); // флаг app - писать только в конец файла, дополняя его
+    std::ofstream out("DB.txt", std::ios::app); // С„Р»Р°Рі app - РїРёСЃР°С‚СЊ С‚РѕР»СЊРєРѕ РІ РєРѕРЅРµС† С„Р°Р№Р»Р°, РґРѕРїРѕР»РЅСЏСЏ РµРіРѕ
     if (!out.is_open()) {
-        std::cout << "[Файл не удалось открыть.]" << std::endl;
+        std::cout << "[Р¤Р°Р№Р» РЅРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ.]" << std::endl;
         return;
     }
     if (ind_next_ == 0) {
-        std::cout << "[Список пуст!]" << std::endl;
+        std::cout << "[РЎРїРёСЃРѕРє РїСѓСЃС‚!]" << std::endl;
         return;
     }
 
@@ -310,21 +310,21 @@ void StudyGroupList::SaveToFile() {
             students_[i].course_ << '\n' <<
             students_[i].grades_.maths_ << '\n' <<
             students_[i].grades_.geometry_ << '\n' <<
-            students_[i].grades_.phys_сult_ << '\n' <<
+            students_[i].grades_.phys_СЃult_ << '\n' <<
             students_[i].grades_.programming_ << '\n' <<
             students_[i].grades_.history_ << '\n';
     }
     out.close();
-    std::cout << "[База данных в файле DB.txt успешно обновлена]" << std::endl;
+    std::cout << "[Р‘Р°Р·Р° РґР°РЅРЅС‹С… РІ С„Р°Р№Р»Рµ DB.txt СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅР°]" << std::endl;
 }
 
-// Загрузить базу данных из файла
+// Р—Р°РіСЂСѓР·РёС‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… РёР· С„Р°Р№Р»Р°
 void StudyGroupList::LoadFromFile() {
     int count_line = CountLinesInFile();
     if (count_line == 0) return;
 
-    if (ind_next_ != 0) {   // проверяем, пуст ли список
-        std::cout << "[Вы хотите очистить список перед загрузкой данных из файла?]\n[1 - Да]" << std::endl;
+    if (ind_next_ != 0) {   // РїСЂРѕРІРµСЂСЏРµРј, РїСѓСЃС‚ Р»Рё СЃРїРёСЃРѕРє
+        std::cout << "[Р’С‹ С…РѕС‚РёС‚Рµ РѕС‡РёСЃС‚РёС‚СЊ СЃРїРёСЃРѕРє РїРµСЂРµРґ Р·Р°РіСЂСѓР·РєРѕР№ РґР°РЅРЅС‹С… РёР· С„Р°Р№Р»Р°?]\n[1 - Р”Р°]" << std::endl;
         char tmp = 0;
         std::cin >> tmp;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -336,17 +336,17 @@ void StudyGroupList::LoadFromFile() {
         }
     }
 
-    int count_student = count_line / 10;                                // находим кол-во структур Student
-    if (count_student > s_g_l_size__) count_student = s_g_l_size__;     // если студентов в базе больше max размера списка,
-                                                                        // сразу пропускаем
+    int count_student = count_line / 10;                                // РЅР°С…РѕРґРёРј РєРѕР»-РІРѕ СЃС‚СЂСѓРєС‚СѓСЂ Student
+    if (count_student > s_g_l_size__) count_student = s_g_l_size__;     // РµСЃР»Рё СЃС‚СѓРґРµРЅС‚РѕРІ РІ Р±Р°Р·Рµ Р±РѕР»СЊС€Рµ max СЂР°Р·РјРµСЂР° СЃРїРёСЃРєР°,
+                                                                        // СЃСЂР°Р·Сѓ РїСЂРѕРїСѓСЃРєР°РµРј
     std::ifstream fin("DB.txt");
     if (!fin)
     {
-        std::cout << "[Текстовый файл не удалось открыть.]" << std::endl;
+        std::cout << "[РўРµРєСЃС‚РѕРІС‹Р№ С„Р°Р№Р» РЅРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ.]" << std::endl;
         return;
     }
 
-    int ind_next = ind_next_;   // записываем, размер списка до добавления записей
+    int ind_next = ind_next_;   // Р·Р°РїРёСЃС‹РІР°РµРј, СЂР°Р·РјРµСЂ СЃРїРёСЃРєР° РґРѕ РґРѕР±Р°РІР»РµРЅРёСЏ Р·Р°РїРёСЃРµР№
     for (int i = ind_next; i < count_student + ind_next; i++) {
         fin.getline(students_[i].name_, str_size__);
         fin.getline(students_[i].surname_, str_size__);
@@ -355,75 +355,75 @@ void StudyGroupList::LoadFromFile() {
         fin >> students_[i].course_;
         fin >> students_[i].grades_.maths_;
         fin >> students_[i].grades_.geometry_;
-        fin >> students_[i].grades_.phys_сult_; 
+        fin >> students_[i].grades_.phys_СЃult_; 
         fin >> students_[i].grades_.programming_;
         fin >> students_[i].grades_.history_;
-        fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // пропускаем символ перевода строки
-        ++ind_next_;                                                    // обновляем список
+        fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // РїСЂРѕРїСѓСЃРєР°РµРј СЃРёРјРІРѕР» РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРєРё
+        ++ind_next_;                                                    // РѕР±РЅРѕРІР»СЏРµРј СЃРїРёСЃРѕРє
     }
     fin.close();
 
-    std::cout << "[База данных из текстового файла успешно загружена.]" << std::endl;
+    std::cout << "[Р‘Р°Р·Р° РґР°РЅРЅС‹С… РёР· С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р° СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅР°.]" << std::endl;
 }
 
-// Подсчитать число строк в файле
+// РџРѕРґСЃС‡РёС‚Р°С‚СЊ С‡РёСЃР»Рѕ СЃС‚СЂРѕРє РІ С„Р°Р№Р»Рµ
 int StudyGroupList::CountLinesInFile() {
-    auto* in = fopen("DB.txt", "a+t");  // открываем файл для чтения-записи, получаем указатель на него
-    int counter = 0;                    // предполагаем, что строк ноль в файле - т.е. пустой
+    auto* in = fopen("DB.txt", "a+t");  // РѕС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» РґР»СЏ С‡С‚РµРЅРёСЏ-Р·Р°РїРёСЃРё, РїРѕР»СѓС‡Р°РµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅРµРіРѕ
+    int counter = 0;                    // РїСЂРµРґРїРѕР»Р°РіР°РµРј, С‡С‚Рѕ СЃС‚СЂРѕРє РЅРѕР»СЊ РІ С„Р°Р№Р»Рµ - С‚.Рµ. РїСѓСЃС‚РѕР№
     if (in == NULL) {
-        std::cout << "[Текстовый файл не удалось открыть.]" << std::endl;
+        std::cout << "[РўРµРєСЃС‚РѕРІС‹Р№ С„Р°Р№Р» РЅРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ.]" << std::endl;
         return 0;
     }
     else {
-        int ch, pre = EOF;              // текущий символ, последний считаный символ
+        int ch, pre = EOF;              // С‚РµРєСѓС‰РёР№ СЃРёРјРІРѕР», РїРѕСЃР»РµРґРЅРёР№ СЃС‡РёС‚Р°РЅС‹Р№ СЃРёРјРІРѕР»
 
-        /* в цикле считаем сколько переводов строки в файле и запоминаем это в переменную counter
-         а также выводим на экран каждый считаный символ.
-         если файл пустой, то тело цикла не выполнится ни разу, так как первый считанный символ будет как раз EOF
-         и в pre останется EOF */
-        while ((ch = fgetc(in)) != EOF) {   // в цикле проходим весь файл посимвольно
-            pre = ch;                       // запоминаем последний считаный символ
-            if (ch == '\n') ++counter;      // если нашли перевод строки, то увеличиваем счетчик строк
+        /* РІ С†РёРєР»Рµ СЃС‡РёС‚Р°РµРј СЃРєРѕР»СЊРєРѕ РїРµСЂРµРІРѕРґРѕРІ СЃС‚СЂРѕРєРё РІ С„Р°Р№Р»Рµ Рё Р·Р°РїРѕРјРёРЅР°РµРј СЌС‚Рѕ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ counter
+         Р° С‚Р°РєР¶Рµ РІС‹РІРѕРґРёРј РЅР° СЌРєСЂР°РЅ РєР°Р¶РґС‹Р№ СЃС‡РёС‚Р°РЅС‹Р№ СЃРёРјРІРѕР».
+         РµСЃР»Рё С„Р°Р№Р» РїСѓСЃС‚РѕР№, С‚Рѕ С‚РµР»Рѕ С†РёРєР»Р° РЅРµ РІС‹РїРѕР»РЅРёС‚СЃСЏ РЅРё СЂР°Р·Сѓ, С‚Р°Рє РєР°Рє РїРµСЂРІС‹Р№ СЃС‡РёС‚Р°РЅРЅС‹Р№ СЃРёРјРІРѕР» Р±СѓРґРµС‚ РєР°Рє СЂР°Р· EOF
+         Рё РІ pre РѕСЃС‚Р°РЅРµС‚СЃСЏ EOF */
+        while ((ch = fgetc(in)) != EOF) {   // РІ С†РёРєР»Рµ РїСЂРѕС…РѕРґРёРј РІРµСЃСЊ С„Р°Р№Р» РїРѕСЃРёРјРІРѕР»СЊРЅРѕ
+            pre = ch;                       // Р·Р°РїРѕРјРёРЅР°РµРј РїРѕСЃР»РµРґРЅРёР№ СЃС‡РёС‚Р°РЅС‹Р№ СЃРёРјРІРѕР»
+            if (ch == '\n') ++counter;      // РµСЃР»Рё РЅР°С€Р»Рё РїРµСЂРµРІРѕРґ СЃС‚СЂРѕРєРё, С‚Рѕ СѓРІРµР»РёС‡РёРІР°РµРј СЃС‡РµС‚С‡РёРє СЃС‚СЂРѕРє
         }
         fclose(in);
 
-        /* весь смысл переменной pre в том, чтобы запомнить какой символ мы считали перед тем как наткнулись на EOF в файле
-         или в pre будет EOF - если тело цикла ни разу не выполнилось, это будет при пустом файле
-         последняя строка файла может заканчиваться не \n, а строку посчитать надо - вот для этого и нужна переменная pre */
+        /* РІРµСЃСЊ СЃРјС‹СЃР» РїРµСЂРµРјРµРЅРЅРѕР№ pre РІ С‚РѕРј, С‡С‚РѕР±С‹ Р·Р°РїРѕРјРЅРёС‚СЊ РєР°РєРѕР№ СЃРёРјРІРѕР» РјС‹ СЃС‡РёС‚Р°Р»Рё РїРµСЂРµРґ С‚РµРј РєР°Рє РЅР°С‚РєРЅСѓР»РёСЃСЊ РЅР° EOF РІ С„Р°Р№Р»Рµ
+         РёР»Рё РІ pre Р±СѓРґРµС‚ EOF - РµСЃР»Рё С‚РµР»Рѕ С†РёРєР»Р° РЅРё СЂР°Р·Сѓ РЅРµ РІС‹РїРѕР»РЅРёР»РѕСЃСЊ, СЌС‚Рѕ Р±СѓРґРµС‚ РїСЂРё РїСѓСЃС‚РѕРј С„Р°Р№Р»Рµ
+         РїРѕСЃР»РµРґРЅСЏСЏ СЃС‚СЂРѕРєР° С„Р°Р№Р»Р° РјРѕР¶РµС‚ Р·Р°РєР°РЅС‡РёРІР°С‚СЊСЃСЏ РЅРµ \n, Р° СЃС‚СЂРѕРєСѓ РїРѕСЃС‡РёС‚Р°С‚СЊ РЅР°РґРѕ - РІРѕС‚ РґР»СЏ СЌС‚РѕРіРѕ Рё РЅСѓР¶РЅР° РїРµСЂРµРјРµРЅРЅР°СЏ pre */
 
-        if (pre == EOF) {   // если файл пустой
-            std::cout << "[Файл пустой!]" << std::endl;
+        if (pre == EOF) {   // РµСЃР»Рё С„Р°Р№Р» РїСѓСЃС‚РѕР№
+            std::cout << "[Р¤Р°Р№Р» РїСѓСЃС‚РѕР№!]" << std::endl;
             return 0;
         }
-        else if (pre != '\n') ++counter;   // если pre содержит в себе не перевод строки, и файл не пустой, то увеличиваем счетчик строк
+        else if (pre != '\n') ++counter;   // РµСЃР»Рё pre СЃРѕРґРµСЂР¶РёС‚ РІ СЃРµР±Рµ РЅРµ РїРµСЂРµРІРѕРґ СЃС‚СЂРѕРєРё, Рё С„Р°Р№Р» РЅРµ РїСѓСЃС‚РѕР№, С‚Рѕ СѓРІРµР»РёС‡РёРІР°РµРј СЃС‡РµС‚С‡РёРє СЃС‚СЂРѕРє
     }
 
-    if (counter % 10 != 0) {    // на 1 студента 10 строк информации
-        std::cout << "[Данные в файле не полные!]";
-        return 0;               // выходим, для корректной работы программы
+    if (counter % 10 != 0) {    // РЅР° 1 СЃС‚СѓРґРµРЅС‚Р° 10 СЃС‚СЂРѕРє РёРЅС„РѕСЂРјР°С†РёРё
+        std::cout << "[Р”Р°РЅРЅС‹Рµ РІ С„Р°Р№Р»Рµ РЅРµ РїРѕР»РЅС‹Рµ!]";
+        return 0;               // РІС‹С…РѕРґРёРј, РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕР№ СЂР°Р±РѕС‚С‹ РїСЂРѕРіСЂР°РјРјС‹
     }
     return counter;
 }
 
-// Создать бинарный файл базы данных из текстового
+// РЎРѕР·РґР°С‚СЊ Р±РёРЅР°СЂРЅС‹Р№ С„Р°Р№Р» Р±Р°Р·С‹ РґР°РЅРЅС‹С… РёР· С‚РµРєСЃС‚РѕРІРѕРіРѕ
 void StudyGroupList::CreateBinaryFile() {
     std::ofstream out("DB.bin", std::ios::binary | std::ios::out);
     if (!out.is_open()) {
-        std::cout << "[Бинарный файл не удалось открыть.]" << std::endl;
+        std::cout << "[Р‘РёРЅР°СЂРЅС‹Р№ С„Р°Р№Р» РЅРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ.]" << std::endl;
         return;
     }
     std::ifstream in("DB.txt");
     if (!in.is_open()) {
-        std::cout << "[Текстовый файл не удалось открыть.]" << std::endl;
+        std::cout << "[РўРµРєСЃС‚РѕРІС‹Р№ С„Р°Р№Р» РЅРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ.]" << std::endl;
         return;
     }
 
-    int count_line = CountLinesInFile();    // находим число строк в текстовом файле
-    if (count_line == 0) return;            // сразу выходим после ошибки, для корректной работы программы
+    int count_line = CountLinesInFile();    // РЅР°С…РѕРґРёРј С‡РёСЃР»Рѕ СЃС‚СЂРѕРє РІ С‚РµРєСЃС‚РѕРІРѕРј С„Р°Р№Р»Рµ
+    if (count_line == 0) return;            // СЃСЂР°Р·Сѓ РІС‹С…РѕРґРёРј РїРѕСЃР»Рµ РѕС€РёР±РєРё, РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕР№ СЂР°Р±РѕС‚С‹ РїСЂРѕРіСЂР°РјРјС‹
 
-    Student students_from_file;             // создаём временное хранилище, для чтения из файла
+    Student students_from_file;             // СЃРѕР·РґР°С‘Рј РІСЂРµРјРµРЅРЅРѕРµ С…СЂР°РЅРёР»РёС‰Рµ, РґР»СЏ С‡С‚РµРЅРёСЏ РёР· С„Р°Р№Р»Р°
     
-    int count_student = count_line / 10;    // находим кол-во структур Student
+    int count_student = count_line / 10;    // РЅР°С…РѕРґРёРј РєРѕР»-РІРѕ СЃС‚СЂСѓРєС‚СѓСЂ Student
     for (int i = 0; i < count_student; i++) {
         in.getline(students_from_file.name_, str_size__);
         in.getline(students_from_file.surname_, str_size__);
@@ -432,30 +432,30 @@ void StudyGroupList::CreateBinaryFile() {
         in >> students_from_file.course_;
         in >> students_from_file.grades_.maths_;
         in >> students_from_file.grades_.geometry_;
-        in >> students_from_file.grades_.phys_сult_;
+        in >> students_from_file.grades_.phys_СЃult_;
         in >> students_from_file.grades_.programming_;
         in >> students_from_file.grades_.history_;
-        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');           // пропускаем символ перевода строки
+        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');           // РїСЂРѕРїСѓСЃРєР°РµРј СЃРёРјРІРѕР» РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРєРё
 
-        out.write((char*)&students_from_file, sizeof(students_from_file));      // записываем структуру Student в бинарный файл
+        out.write((char*)&students_from_file, sizeof(students_from_file));      // Р·Р°РїРёСЃС‹РІР°РµРј СЃС‚СЂСѓРєС‚СѓСЂСѓ Student РІ Р±РёРЅР°СЂРЅС‹Р№ С„Р°Р№Р»
     }
 
     in.close();
     out.close();
 
-    std::cout << "[База данных из текстового файла успешно сохранена в бинарном файле.]" << std::endl;
+    std::cout << "[Р‘Р°Р·Р° РґР°РЅРЅС‹С… РёР· С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р° СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅР° РІ Р±РёРЅР°СЂРЅРѕРј С„Р°Р№Р»Рµ.]" << std::endl;
 }
 
-// Загрузить базу данных из бинарного файла
+// Р—Р°РіСЂСѓР·РёС‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… РёР· Р±РёРЅР°СЂРЅРѕРіРѕ С„Р°Р№Р»Р°
 void StudyGroupList::LoadFromBinaryFile() {
     std::ifstream in("DB.bin", std::ios::binary | std::ios::in);
     if (!in.is_open()) {
-        std::cout << "[Бинарный файл не удалось открыть.]" << std::endl;
+        std::cout << "[Р‘РёРЅР°СЂРЅС‹Р№ С„Р°Р№Р» РЅРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ.]" << std::endl;
         return;
     }
 
-    if (ind_next_ != 0) {   // проверяем, пуст ли список
-        std::cout << "[Вы хотите очистить список перед загрузкой данных из файла?]\n[1 - Да]" << std::endl;
+    if (ind_next_ != 0) {   // РїСЂРѕРІРµСЂСЏРµРј, РїСѓСЃС‚ Р»Рё СЃРїРёСЃРѕРє
+        std::cout << "[Р’С‹ С…РѕС‚РёС‚Рµ РѕС‡РёСЃС‚РёС‚СЊ СЃРїРёСЃРѕРє РїРµСЂРµРґ Р·Р°РіСЂСѓР·РєРѕР№ РґР°РЅРЅС‹С… РёР· С„Р°Р№Р»Р°?]\n[1 - Р”Р°]" << std::endl;
         char tmp = 0;
         std::cin >> tmp;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -467,11 +467,11 @@ void StudyGroupList::LoadFromBinaryFile() {
         }
     }
 
-    // определяем количество структур в файле
-    in.seekg(0, in.end);                    // перемещаем указатель чтения в конец файла
-    unsigned int tripsCount = in.tellg();   // записываем позицию указателя в переменную, она равна количеству байт в файле
-    tripsCount /= sizeof(Student);          // делим общее количество байт в файле на количество байт занимаемых одной структурой
-    in.seekg(0, in.beg);                    // возвращаем указатель чтения в начало файла
+    // РѕРїСЂРµРґРµР»СЏРµРј РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂСѓРєС‚СѓСЂ РІ С„Р°Р№Р»Рµ
+    in.seekg(0, in.end);                    // РїРµСЂРµРјРµС‰Р°РµРј СѓРєР°Р·Р°С‚РµР»СЊ С‡С‚РµРЅРёСЏ РІ РєРѕРЅРµС† С„Р°Р№Р»Р°
+    unsigned int tripsCount = in.tellg();   // Р·Р°РїРёСЃС‹РІР°РµРј РїРѕР·РёС†РёСЋ СѓРєР°Р·Р°С‚РµР»СЏ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ, РѕРЅР° СЂР°РІРЅР° РєРѕР»РёС‡РµСЃС‚РІСѓ Р±Р°Р№С‚ РІ С„Р°Р№Р»Рµ
+    tripsCount /= sizeof(Student);          // РґРµР»РёРј РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р±Р°Р№С‚ РІ С„Р°Р№Р»Рµ РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ Р±Р°Р№С‚ Р·Р°РЅРёРјР°РµРјС‹С… РѕРґРЅРѕР№ СЃС‚СЂСѓРєС‚СѓСЂРѕР№
+    in.seekg(0, in.beg);                    // РІРѕР·РІСЂР°С‰Р°РµРј СѓРєР°Р·Р°С‚РµР»СЊ С‡С‚РµРЅРёСЏ РІ РЅР°С‡Р°Р»Рѕ С„Р°Р№Р»Р°
 
     int ind_next = ind_next_;
     for (int i = ind_next; i < tripsCount + ind_next; i++) {
@@ -479,16 +479,16 @@ void StudyGroupList::LoadFromBinaryFile() {
         ++ind_next_;
     }
 
-    std::cout << "[База данных из бинарного файла успешно загружена.]" << std::endl;
+    std::cout << "[Р‘Р°Р·Р° РґР°РЅРЅС‹С… РёР· Р±РёРЅР°СЂРЅРѕРіРѕ С„Р°Р№Р»Р° СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅР°.]" << std::endl;
 }
 
-// Вывести запись о студенте, имеющем максимальный средний балл
+// Р’С‹РІРµСЃС‚Рё Р·Р°РїРёСЃСЊ Рѕ СЃС‚СѓРґРµРЅС‚Рµ, РёРјРµСЋС‰РµРј РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЃСЂРµРґРЅРёР№ Р±Р°Р»Р»
 void StudyGroupList::PrintMostSuccessfulStudent() {
     int successful_student_id = 0;
     float gpa = 0, gpa_max = -1.0;
     for (int i = 0; i < ind_next_; i++) {
         gpa = (students_[i].grades_.maths_ + students_[i].grades_.geometry_
-            + students_[i].grades_.phys_сult_ + students_[i].grades_.programming_
+            + students_[i].grades_.phys_СЃult_ + students_[i].grades_.programming_
             + students_[i].grades_.history_) / 5;
         if (gpa_max < gpa) {
             gpa_max = gpa;
@@ -496,7 +496,7 @@ void StudyGroupList::PrintMostSuccessfulStudent() {
         }
     }
 
-    // определим ширину столбцов для таблицы
+    // РѕРїСЂРµРґРµР»РёРј С€РёСЂРёРЅСѓ СЃС‚РѕР»Р±С†РѕРІ РґР»СЏ С‚Р°Р±Р»РёС†С‹
     int ind_s = 1;     
     successful_student_id > 9 ? ind_s = 2 : ind_s = 1;
     int name_max_s = 5;
@@ -513,10 +513,10 @@ void StudyGroupList::PrintMostSuccessfulStudent() {
         ++name_max_s;
     }
 
-    std::cout << std::setw(ind_s + 1) << '|' << std::setw(alignment_student) << std::left << "Студент" << '|' << std::right << std::setw(18) << "Оценки" << std::setw(18) << '|' << '\n';
-    std::cout << std::setw(ind_s + 1) << '|' << std::setw(name_max_s) << std::left << "ФИО" << '|' << std::setw(group_max_s + 1) << "Группа" << '|' << "Курс" << '|' << "Мат." << '|' << "Геом." << '|' << "Физ.культ." << '|' << "Програм." << '|' << "Ист." << '|' << '\n';
+    std::cout << std::setw(ind_s + 1) << '|' << std::setw(alignment_student) << std::left << "РЎС‚СѓРґРµРЅС‚" << '|' << std::right << std::setw(18) << "РћС†РµРЅРєРё" << std::setw(18) << '|' << '\n';
+    std::cout << std::setw(ind_s + 1) << '|' << std::setw(name_max_s) << std::left << "Р¤РРћ" << '|' << std::setw(group_max_s + 1) << "Р“СЂСѓРїРїР°" << '|' << "РљСѓСЂСЃ" << '|' << "РњР°С‚." << '|' << "Р“РµРѕРј." << '|' << "Р¤РёР·.РєСѓР»СЊС‚." << '|' << "РџСЂРѕРіСЂР°Рј." << '|' << "РСЃС‚." << '|' << '\n';
     PrintOne(successful_student_id, ind_s, name_max_s, group_max_s);
     std::cout << line__ << std::endl;
 
-    std::cout << "[Средний балл: " << gpa_max << "]\n" << line__ << std::endl;
+    std::cout << "[РЎСЂРµРґРЅРёР№ Р±Р°Р»Р»: " << gpa_max << "]\n" << line__ << std::endl;
 }
