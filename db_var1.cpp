@@ -336,9 +336,9 @@ void StudyGroupList::LoadFromFile() {
         }
     }
 
-    int count_student = count_line / 10;                                // находим кол-во структур Student
-    if (count_student > s_g_l_size__) count_student = s_g_l_size__;     // если студентов в базе больше max размера списка,
-                                                                        // сразу пропускаем
+    int count_student = count_line / 10;                                			// находим кол-во структур Student
+    if (count_student > s_g_l_size__ - ind_next_) count_student = s_g_l_size__ - ind_next_;	// если студентов в базе больше max размера списка,
+                                                                        			// сразу пропускаем
     std::ifstream fin("DB.txt");
     if (!fin)
     {
