@@ -472,7 +472,8 @@ void StudyGroupList::LoadFromBinaryFile() {
     unsigned int tripsCount = in.tellg();   // записываем позицию указателя в переменную, она равна количеству байт в файле
     tripsCount /= sizeof(Student);          // делим общее количество байт в файле на количество байт занимаемых одной структурой
     in.seekg(0, in.beg);                    // возвращаем указатель чтения в начало файла
-
+	
+    if (tripsCount > s_g_l_size__ - ind_next_) tripsCount = s_g_l_size__ - ind_next_;
     int ind_next = ind_next_;
     for (int i = ind_next; i < tripsCount + ind_next; i++) {
         in.read((char*)&students_[i], sizeof(students_[i]));
